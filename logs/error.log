@@ -1,0 +1,954 @@
+ERROR 2024-12-31 22:42:53,375 log 17284 4940 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\views.py", line 58, in home
+    return render(request, 'core/home.html', context)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 489, in parse
+    raise self.error(token, e)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 605, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 701, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 611, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'get_item'
+ERROR 2024-12-31 22:42:53,380 middleware 17284 4940 Request failed: {"path": "/", "method": "GET", "status": 500, "duration": 63.36, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {}}
+ERROR 2025-01-01 05:26:42,236 middleware 13552 8704 Request failed: {"path": "/favicon.ico", "method": "GET", "status": 404, "duration": 15.72, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {}}
+ERROR 2025-01-01 05:27:29,673 middleware 13552 8704 Request failed: {"path": "/add-inventory-item/", "method": "POST", "status": 400, "duration": 0.61, "user": "anonymous", "ip": "127.0.0.1", "body": {"csrfmiddlewaretoken": "INphnGhF889MRPWnrofTW2y5IPvBmbg1wgMHh4qzv7yUwiggdTbjY6zNkk77VZzU", "item_name": "Big Ball", "item_cost": "1000"}, "query_params": {}}
+ERROR 2025-01-01 05:28:01,094 middleware 13552 8704 Request failed: {"path": "/add-task/", "method": "POST", "status": 400, "duration": 0.9, "user": "anonymous", "ip": "127.0.0.1", "body": {"csrfmiddlewaretoken": "GK9xrO7PBYlM8Lsk07kK9IPVmjockWkdudwXlcgJYXKUNeMdMCgabMQDYO0ITKD6", "name": "wewe", "description": "wewe", "deadline": "2024-12-26"}, "query_params": {}}
+ERROR 2025-01-01 05:32:34,669 log 6072 1960 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\views.py", line 76, in home
+    sales=Sum('value', filter=models.Q(entry_type='MEATBALL_SALES')),
+                              ^^^^^^
+NameError: name 'models' is not defined
+ERROR 2025-01-01 05:32:34,671 middleware 6072 1960 Request failed: {"path": "/", "method": "GET", "status": 500, "duration": 88.65, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {}}
+ERROR 2025-01-01 05:34:11,342 log 1168 9616 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\views.py", line 110, in home
+    return render(request, 'core/home.html', context)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 1067, in render
+    output = self.filter_expression.resolve(context)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 745, in resolve
+    new_obj = func(obj, *arg_vals)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\templatetags\core_tags.py", line 9, in get_item
+    return dictionary.get(key, 0)
+           ^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+ERROR 2025-01-01 05:34:11,347 middleware 1168 9616 Request failed: {"path": "/", "method": "GET", "status": 500, "duration": 194.78, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {}}
+ERROR 2025-01-01 05:48:48,461 log 4492 1484 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    self.check_response(response, callback)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 332, in check_response
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: The view core.views.home didn't return an HttpResponse object. It returned None instead.
+ERROR 2025-01-01 05:48:48,462 middleware 4492 1484 Request failed: {"path": "/", "method": "GET", "status": 500, "duration": 36.37, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {}}
+ERROR 2025-01-01 05:57:06,629 log 6020 15164 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\views.py", line 95, in home
+    barber_profits_dict = {p['date']: p['profit'] for p in barber_profits}
+                                                           ^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\query.py", line 400, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\query.py", line 210, in __iter__
+    for row in compiler.results_iter(
+               ~~~~~~~~~~~~~~~~~~~~~^
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1525, in results_iter
+    results = self.execute_sql(
+        MULTI, chunked_fetch=chunked_fetch, chunk_size=chunk_size
+    )
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1561, in execute_sql
+    sql, params = self.as_sql()
+                  ~~~~~~~~~~~^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 747, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup(
+                                       ~~~~~~~~~~~~~~~~~~^
+        with_col_aliases=with_col_aliases or bool(combinator),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 84, in pre_sql_setup
+    self.setup_query(with_col_aliases=with_col_aliases)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 73, in setup_query
+    self.select, self.klass_info, self.annotation_col_map = self.get_select(
+                                                            ~~~~~~~~~~~~~~~^
+        with_col_aliases=with_col_aliases,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 296, in get_select
+    sql, params = self.compile(col)
+                  ~~~~~~~~~~~~^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 555, in compile
+    sql, params = vendor_impl(self, self.connection)
+                  ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\expressions.py", line 29, in as_sqlite
+    sql, params = self.as_sql(compiler, connection, **extra_context)
+                  ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\aggregates.py", line 146, in as_sql
+    return super().as_sql(compiler, connection, **extra_context)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\expressions.py", line 1092, in as_sql
+    arg_sql, arg_params = compiler.compile(arg)
+                          ~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 555, in compile
+    sql, params = vendor_impl(self, self.connection)
+                  ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\expressions.py", line 29, in as_sqlite
+    sql, params = self.as_sql(compiler, connection, **extra_context)
+                  ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\expressions.py", line 1670, in as_sql
+    if self._output_field_or_none is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\expressions.py", line 327, in _output_field_or_none
+    return self.output_field
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\expressions.py", line 314, in output_field
+    output_field = self._resolve_output_field()
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\expressions.py", line 352, in _resolve_output_field
+    raise FieldError(
+    ...<6 lines>...
+    )
+django.core.exceptions.FieldError: Expression contains mixed types: DecimalField, IntegerField. You must set output_field.
+ERROR 2025-01-01 05:57:06,636 middleware 6020 15164 Request failed: {"path": "/", "method": "GET", "status": 500, "duration": 106.44, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {}}
+ERROR 2025-01-01 06:12:36,187 log 1956 15344 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\views.py", line 80, in home
+    sales=Coalesce(Sum('value', filter=Q(entry_type='MEATBALL_SALES')), 0),
+          ^^^^^^^^
+NameError: name 'Coalesce' is not defined
+ERROR 2025-01-01 06:12:36,190 middleware 1956 15344 Request failed: {"path": "/", "method": "GET", "status": 500, "duration": 35.09, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {}}
+ERROR 2025-01-01 06:13:28,491 log 1956 15344 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\views.py", line 80, in home
+    )
+    
+NameError: name 'Coalesce' is not defined
+ERROR 2025-01-01 06:13:28,493 middleware 1956 15344 Request failed: {"path": "/", "method": "GET", "status": 500, "duration": 19.94, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {}}
+ERROR 2025-01-01 06:13:31,390 log 10320 14352 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\views.py", line 76, in home
+    .aggregate(
+     ~~~~~~~~~^
+        sales=Coalesce(Sum('value', filter=Q(entry_type='MEATBALL_SALES')), 0),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        salad_cost=Coalesce(Sum('value', filter=Q(entry_type='MEATBALL_SALAD')), 0)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\query.py", line 604, in aggregate
+    return self.query.chain().get_aggregation(self.db, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\query.py", line 616, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1561, in execute_sql
+    sql, params = self.as_sql()
+                  ~~~~~~~~~~~^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 747, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup(
+                                       ~~~~~~~~~~~~~~~~~~^
+        with_col_aliases=with_col_aliases or bool(combinator),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 84, in pre_sql_setup
+    self.setup_query(with_col_aliases=with_col_aliases)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 73, in setup_query
+    self.select, self.klass_info, self.annotation_col_map = self.get_select(
+                                                            ~~~~~~~~~~~~~~~^
+        with_col_aliases=with_col_aliases,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 309, in get_select
+    sql, params = col.select_format(self, sql, params)
+                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\expressions.py", line 485, in select_format
+    if hasattr(self.output_field, "select_format"):
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\expressions.py", line 314, in output_field
+    output_field = self._resolve_output_field()
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\expressions.py", line 352, in _resolve_output_field
+    raise FieldError(
+    ...<6 lines>...
+    )
+django.core.exceptions.FieldError: Expression contains mixed types: DecimalField, IntegerField. You must set output_field.
+ERROR 2025-01-01 06:13:31,395 middleware 10320 14352 Request failed: {"path": "/", "method": "GET", "status": 500, "duration": 59.85, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {}}
+ERROR 2025-01-01 06:13:38,372 log 3636 1640 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\views.py", line 76, in home
+    .aggregate(
+     ~~~~~~~~~^
+        sales=Coalesce(Sum('value', filter=Q(entry_type='MEATBALL_SALES')), 0),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        salad_cost=Coalesce(Sum('value', filter=Q(entry_type='MEATBALL_SALAD')), 0)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\query.py", line 604, in aggregate
+    return self.query.chain().get_aggregation(self.db, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\query.py", line 616, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1561, in execute_sql
+    sql, params = self.as_sql()
+                  ~~~~~~~~~~~^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 747, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup(
+                                       ~~~~~~~~~~~~~~~~~~^
+        with_col_aliases=with_col_aliases or bool(combinator),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 84, in pre_sql_setup
+    self.setup_query(with_col_aliases=with_col_aliases)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 73, in setup_query
+    self.select, self.klass_info, self.annotation_col_map = self.get_select(
+                                                            ~~~~~~~~~~~~~~~^
+        with_col_aliases=with_col_aliases,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 309, in get_select
+    sql, params = col.select_format(self, sql, params)
+                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\expressions.py", line 485, in select_format
+    if hasattr(self.output_field, "select_format"):
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\expressions.py", line 314, in output_field
+    output_field = self._resolve_output_field()
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\expressions.py", line 352, in _resolve_output_field
+    raise FieldError(
+    ...<6 lines>...
+    )
+django.core.exceptions.FieldError: Expression contains mixed types: DecimalField, IntegerField. You must set output_field.
+ERROR 2025-01-01 06:13:38,376 middleware 3636 1640 Request failed: {"path": "/", "method": "GET", "status": 500, "duration": 47.53, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {}}
+ERROR 2025-01-01 09:12:44,801 log 5684 14896 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\views.py", line 76, in home
+    .aggregate(
+     ~~~~~~~~~^
+        sales=Coalesce(Sum('value', filter=Q(entry_type='MEATBALL_SALES')), 0),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        salad_cost=Coalesce(Sum('value', filter=Q(entry_type='MEATBALL_SALAD')), 0)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\query.py", line 604, in aggregate
+    return self.query.chain().get_aggregation(self.db, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\query.py", line 616, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1561, in execute_sql
+    sql, params = self.as_sql()
+                  ~~~~~~~~~~~^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 747, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup(
+                                       ~~~~~~~~~~~~~~~~~~^
+        with_col_aliases=with_col_aliases or bool(combinator),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 84, in pre_sql_setup
+    self.setup_query(with_col_aliases=with_col_aliases)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 73, in setup_query
+    self.select, self.klass_info, self.annotation_col_map = self.get_select(
+                                                            ~~~~~~~~~~~~~~~^
+        with_col_aliases=with_col_aliases,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 309, in get_select
+    sql, params = col.select_format(self, sql, params)
+                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\expressions.py", line 485, in select_format
+    if hasattr(self.output_field, "select_format"):
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\expressions.py", line 314, in output_field
+    output_field = self._resolve_output_field()
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\expressions.py", line 352, in _resolve_output_field
+    raise FieldError(
+    ...<6 lines>...
+    )
+django.core.exceptions.FieldError: Expression contains mixed types: DecimalField, IntegerField. You must set output_field.
+ERROR 2025-01-01 09:12:44,807 middleware 5684 14896 Request failed: {"path": "/", "method": "GET", "status": 500, "duration": 198.68, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {}}
+ERROR 2025-01-01 10:00:22,075 log 5684 12300 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\views.py", line 76, in home
+    .aggregate(
+     ~~~~~~~~~^
+        sales=Coalesce(Sum('value', filter=Q(entry_type='MEATBALL_SALES')), 0),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        salad_cost=Coalesce(Sum('value', filter=Q(entry_type='MEATBALL_SALAD')), 0)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\query.py", line 604, in aggregate
+    return self.query.chain().get_aggregation(self.db, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\query.py", line 616, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1561, in execute_sql
+    sql, params = self.as_sql()
+                  ~~~~~~~~~~~^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 747, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup(
+                                       ~~~~~~~~~~~~~~~~~~^
+        with_col_aliases=with_col_aliases or bool(combinator),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 84, in pre_sql_setup
+    self.setup_query(with_col_aliases=with_col_aliases)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 73, in setup_query
+    self.select, self.klass_info, self.annotation_col_map = self.get_select(
+                                                            ~~~~~~~~~~~~~~~^
+        with_col_aliases=with_col_aliases,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 309, in get_select
+    sql, params = col.select_format(self, sql, params)
+                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\expressions.py", line 485, in select_format
+    if hasattr(self.output_field, "select_format"):
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\expressions.py", line 314, in output_field
+    output_field = self._resolve_output_field()
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\expressions.py", line 352, in _resolve_output_field
+    raise FieldError(
+    ...<6 lines>...
+    )
+django.core.exceptions.FieldError: Expression contains mixed types: DecimalField, IntegerField. You must set output_field.
+ERROR 2025-01-01 10:00:22,078 middleware 5684 12300 Request failed: {"path": "/", "method": "GET", "status": 500, "duration": 37.82, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {}}
+ERROR 2025-01-01 10:01:54,290 log 1236 2544 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\views.py", line 103, in home
+    total_profit = barber_profit + shoe_profit + meatball_profit
+                   ~~~~~~~~~~~~~~^~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for +: 'float' and 'decimal.Decimal'
+ERROR 2025-01-01 10:01:54,292 middleware 1236 2544 Request failed: {"path": "/", "method": "GET", "status": 500, "duration": 38.14, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {}}
+ERROR 2025-01-01 10:02:19,566 log 4524 14016 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\views.py", line 104, in home
+    total_profit = barber_profit + shoe_profit + meatball_profit
+                   ~~~~~~~~~~~~~~^~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for +: 'float' and 'decimal.Decimal'
+ERROR 2025-01-01 10:02:19,568 middleware 4524 14016 Request failed: {"path": "/", "method": "GET", "status": 500, "duration": 41.32, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {}}
+ERROR 2025-01-01 10:05:19,753 middleware 6020 14108 Request failed: {"path": "/add-inventory-item/", "method": "POST", "status": 400, "duration": 0.39, "user": "anonymous", "ip": "127.0.0.1", "body": {"csrfmiddlewaretoken": "S6SVyKDwyR7rT8ApFNRnIeYck3h5hcKrGzfls8MqVQwzyBUiriNNKiZUWyTBQ03k", "item_name": "Big Ball", "item_cost": "400"}, "query_params": {}}
+ERROR 2025-01-01 10:18:51,372 middleware 8312 2260 Request failed: {"path": "/add-inventory-item/", "method": "POST", "status": 400, "duration": 0.42, "user": "anonymous", "ip": "127.0.0.1", "body": {"csrfmiddlewaretoken": "udRVIBZDUYa7rvwArSmYcYKIJKSYnZIPiGelCZ8xhXzf6YQtdnioe2LqlfuuWN1I", "item_name": "Big Ball", "item_cost": "500"}, "query_params": {}}
+ERROR 2025-01-01 10:28:44,666 middleware 1200 9672 Request failed: {"path": "/set-inventory/", "method": "POST", "status": 400, "duration": 0.66, "user": "anonymous", "ip": "127.0.0.1", "body": {"csrfmiddlewaretoken": "czA41LBgoQDSRqw0NQiAK3AKUcmZeP6U02XuV9KaLP20wTQTzle0M7BswHYvNDpN", "inventory_type": "START", "date": "2024-12-30", "quantity_1": "4"}, "query_params": {}}
+ERROR 2025-01-01 10:48:02,021 log 12556 13852 Internal Server Error: /inventory/
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'trans'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\views.py", line 221, in inventory
+    return render(request, 'core/inventory.html', context)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 573, in invalid_block_tag
+    raise self.error(
+    ...<3 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 11: 'trans'. Did you forget to register or load this tag?
+ERROR 2025-01-01 10:48:02,025 middleware 12556 13852 Request failed: {"path": "/inventory/", "method": "GET", "status": 500, "duration": 99.67, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {}}
+ERROR 2025-01-01 10:49:10,944 log 13288 11716 Internal Server Error: /inventory-report/
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\views.py", line 331, in inventory_report
+    start_inventories = WeeklyInventory.objects.filter(
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        inventory_type='START',
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        date__range=[start_date, end_date]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).select_related('item')
+    ^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1768, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'date' into field. Choices are: created_at, id, inventory_type, item, item_id, quantity, updated_at, week_number, year
+ERROR 2025-01-01 10:49:10,947 middleware 13288 11716 Request failed: {"path": "/inventory-report/", "method": "GET", "status": 500, "duration": 54.37, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {"start_date": "2024-12-30", "end_date": "2025-01-05"}}
+ERROR 2025-01-01 10:50:30,643 log 13288 11716 Internal Server Error: /inventory-report/
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\views.py", line 331, in inventory_report
+    start_inventories = WeeklyInventory.objects.filter(
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        inventory_type='START',
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        date__range=[start_date, end_date]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).select_related('item')
+    ^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1768, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'date' into field. Choices are: created_at, id, inventory_type, item, item_id, quantity, updated_at, week_number, year
+ERROR 2025-01-01 10:50:30,645 middleware 13288 11716 Request failed: {"path": "/inventory-report/", "method": "GET", "status": 500, "duration": 34.61, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {"start_date": "2024-12-30", "end_date": "2025-01-05"}}
+ERROR 2025-01-01 12:22:35,171 log 1700 2940 Internal Server Error: /inventory-report-ajax/
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'trans'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\views.py", line 669, in inventory_report_ajax
+    return render(request, 'core/inventory_report_ajax.html', context)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\defaulttags.py", line 970, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 563, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 8: 'trans', expected 'elif', 'else' or 'endif'. Did you forget to register or load this tag?
+ERROR 2025-01-01 12:22:35,176 middleware 1700 2940 Request failed: {"path": "/inventory-report-ajax/", "method": "GET", "status": 500, "duration": 62.6, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {"start_date": "2024-12-30", "end_date": "2025-01-05"}}
+ERROR 2025-01-01 12:38:38,393 log 14064 14656 Internal Server Error: /move-forward/
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\views.py", line 699, in move_forward
+    return render(request, 'core/move_forward.html', context)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader_tags.py", line 228, in do_block
+    raise TemplateSyntaxError(
+        "'%s' tag with name '%s' appears more than once" % (bits[0], block_name)
+    )
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'title' appears more than once
+ERROR 2025-01-01 12:38:38,398 middleware 14064 14656 Request failed: {"path": "/move-forward/", "method": "GET", "status": 500, "duration": 60.01, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {}}
+ERROR 2025-01-01 12:46:08,140 log 3476 15008 Internal Server Error: /move-forward/
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\views.py", line 699, in move_forward
+    return render(request, 'core/move_forward.html', context)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 489, in parse
+    raise self.error(token, e)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 605, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 706, in __init__
+    raise TemplateSyntaxError(
+    ...<2 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: ' / account.goal * 100' from 'account.balance / account.goal * 100'
+ERROR 2025-01-01 12:46:08,146 middleware 3476 15008 Request failed: {"path": "/move-forward/", "method": "GET", "status": 500, "duration": 61.1, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {}}
+ERROR 2025-01-01 12:56:18,988 log 12904 5520 Internal Server Error: /move-forward/
+Traceback (most recent call last):
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\core\views.py", line 699, in move_forward
+    return render(request, 'core/move_forward.html', context)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 489, in parse
+    raise self.error(token, e)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 605, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\erik\PycharmProjects\oy_companies_project\.venv\Lib\site-packages\django\template\base.py", line 678, in __init__
+    raise TemplateSyntaxError(
+    ...<2 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Could not parse some characters: account.goal| - account.balance||floatformat:2
+ERROR 2025-01-01 12:56:18,994 middleware 12904 5520 Request failed: {"path": "/move-forward/", "method": "GET", "status": 500, "duration": 56.33, "user": "anonymous", "ip": "127.0.0.1", "body": null, "query_params": {}}

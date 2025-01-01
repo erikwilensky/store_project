@@ -1,0 +1,373 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Meatball Inventory" %} - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- Add Inventory Item -->
+        <div class="col-12 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="h5 mb-0">{% trans "Add New Item" %}</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'add_inventory_item' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_name" class="form-label">{% trans "Item Name" %}</label>
+                            {{ item_form.name }}
+                            {% if item_form.name.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ item_form.name.errors|join:", " }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_cost" class="form-label">{% trans "Cost (฿)" %}</label>
+                            {{ item_form.cost }}
+                            {% if item_form.cost.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ item_form.cost.errors|join:", " }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-primary">{% trans "Add Item" %}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Current Items List -->
+        <div class="col-12 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="h5 mb-0">{% trans "Current Items" %}</h3>
+                </div>
+                <div class="card-body">
+                    {% if items %}
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>{% trans "Name" %}</th>
+                                        <th>{% trans "Cost" %}</th>
+                                        <th>{% trans "Actions" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in items %}
+                                    <tr data-item-id="{{ item.id }}">
+                                        <td>{{ item.name }}</td>
+                                        <td>฿{{ item.cost|floatformat:0 }}</td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm">
+                                                <button type="button"
+                                                        class="btn btn-outline-primary"
+                                                        onclick="editItem({{ item.id }})">
+                                                    {% trans "Edit" %}
+                                                </button>
+                                                <button type="button"
+                                                        class="btn btn-outline-danger"
+                                                        onclick="deleteItem({{ item.id }})">
+                                                    {% trans "Delete" %}
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="mb-0 text-muted">{% trans "No items available." %}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Weekly Inventory -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="h5 mb-0">{% trans "Weekly Inventory" %}</h3>
+                </div>
+                <div class="card-body">
+                    {% if items %}
+                        <form method="post" action="{% url 'set_inventory' %}">
+                            {% csrf_token %}
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                               name="inventory_type" id="start_week"
+                                               value="START" checked>
+                                        <label class="form-check-label" for="start_week">
+                                            {% trans "Start of Week" %}
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                               name="inventory_type" id="end_week"
+                                               value="END">
+                                        <label class="form-check-label" for="end_week">
+                                            {% trans "End of Week" %}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="date" name="date" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>{% trans "Item" %}</th>
+                                            <th>{% trans "Quantity" %}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in items %}
+                                        <tr>
+                                            <td>{{ item.name }}</td>
+                                            <td>
+                                                <input type="number"
+                                                       name="quantity_{{ item.id }}"
+                                                       class="form-control"
+                                                       min="0"
+                                                       value="0"
+                                                       required>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                {% trans "Save Inventory" %}
+                            </button>
+                        </form>
+                    {% else %}
+                        <p class="text-muted">
+                            {% trans "Please add inventory items first." %}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inventory Reports -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="h5 mb-0">{% trans "Inventory Reports" %}</h3>
+            </div>
+            <div class="card-body">
+                <form id="inventory-report-form" class="row g-3 align-items-end">
+                    <div class="col-md-4">
+                        <label class="form-label">{% trans "Start Date (Monday)" %}</label>
+                        <input type="date" name="start_date" id="start_date" class="form-control" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">{% trans "End Date (Sunday)" %}</label>
+                        <input type="date" name="end_date" id="end_date" class="form-control" required>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary w-100">
+                            {% trans "Generate Report" %}
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Container for AJAX report results -->
+                <div id="report-results" class="mt-4"></div>
+
+                {% if weekly_counts %}
+                <div class="table-responsive mt-4">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Week" %}</th>
+                                <th>{% trans "Year" %}</th>
+                                <th>{% trans "View Report" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for week in weekly_counts %}
+                            <tr>
+                                <td>Week {{ week.week_number }}</td>
+                                <td>{{ week.year }}</td>
+                                <td>
+                                    <a href="{% url 'inventory_report' %}?week={{ week.week_number }}&year={{ week.year }}"
+                                       class="btn btn-sm btn-outline-primary">
+                                        {% trans "View Report" %}
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Item Modal -->
+<div class="modal fade" id="editItemModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{% trans "Edit Item" %}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" action="" id="editItemForm">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="edit_name" class="form-label">{% trans "Item Name" %}</label>
+                        <input type="text" class="form-control" id="edit_name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_cost" class="form-label">{% trans "Cost (฿)" %}</label>
+                        <input type="number" class="form-control" id="edit_cost" name="cost" step="1" min="0" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
+                    <button type="submit" class="btn btn-primary">{% trans "Save Changes" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function editItem(itemId) {
+    const modal = new bootstrap.Modal(document.getElementById('editItemModal'));
+    const row = document.querySelector(`tr[data-item-id="${itemId}"]`);
+    const name = row.querySelector('td:first-child').textContent;
+    const cost = row.querySelector('td:nth-child(2)').textContent.replace('฿', '').trim();
+
+    document.getElementById('edit_name').value = name;
+    document.getElementById('edit_cost').value = cost;
+    document.getElementById('editItemForm').action = `/edit-inventory-item/${itemId}/`;
+
+    modal.show();
+}
+
+function deleteItem(itemId) {
+    if (confirm('{% trans "Are you sure you want to delete this item?" %}')) {
+        fetch(`/delete-inventory-item/${itemId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            }
+        }).then(response => {
+            if (response.ok) {
+                window.location.reload();
+            }
+        });
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Date validation for inventory
+    const dateInput = document.querySelector('input[name="date"]');
+    const radioInputs = document.querySelectorAll('input[name="inventory_type"]');
+    const reportStartDate = document.querySelector('input[name="start_date"]');
+    const reportEndDate = document.querySelector('input[name="end_date"]');
+    const inventoryReportForm = document.getElementById('inventory-report-form');
+    const reportResults = document.getElementById('report-results');
+
+    function validateDate() {
+        const selectedType = document.querySelector('input[name="inventory_type"]:checked').value;
+        const date = new Date(dateInput.value);
+        const dayOfWeek = date.getDay();
+
+        if (selectedType === 'START' && dayOfWeek !== 1) {
+            alert('{% trans "Start of week inventory must be set on Monday" %}');
+            dateInput.value = '';
+        } else if (selectedType === 'END' && dayOfWeek !== 0) {
+            alert('{% trans "End of week inventory must be set on Sunday" %}');
+            dateInput.value = '';
+        }
+    }
+
+    if (dateInput) {
+        dateInput.addEventListener('change', validateDate);
+    }
+
+    if (radioInputs) {
+        radioInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                if (dateInput.value) {
+                    validateDate();
+                }
+            });
+        });
+    }
+
+    // Validate report dates
+    if (reportStartDate) {
+        reportStartDate.addEventListener('change', function() {
+            const date = new Date(this.value);
+            if (date.getDay() !== 1) {
+                alert('{% trans "Start date must be a Monday" %}');
+                this.value = '';
+            }
+        });
+    }
+
+    if (reportEndDate) {
+        reportEndDate.addEventListener('change', function() {
+            const date = new Date(this.value);
+            if (date.getDay() !== 0) {
+                alert('{% trans "End date must be a Sunday" %}');
+                this.value = '';
+            }
+        });
+    }
+
+    // AJAX Report Generation
+    if (inventoryReportForm && reportResults) {
+        inventoryReportForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const startDate = document.getElementById('start_date').value;
+            const endDate = document.getElementById('end_date').value;
+
+            // Validate dates
+            if (!startDate || !endDate) {
+                alert('{% trans "Please select both start and end dates" %}');
+                return;
+            }
+
+            // Clear previous results
+            reportResults.innerHTML = '<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+
+            // Fetch report
+            fetch(`/inventory-report-ajax/?start_date=${startDate}&end_date=${endDate}`)
+                .then(response => response.text())
+                .then(html => {
+                    reportResults.innerHTML = html;
+                })
+                .catch(error => {
+                    reportResults.innerHTML = `<div class="alert alert-danger">{% trans "Error loading report" %}: ${error}</div>`;
+                });
+        });
+    }
+});
+</script>
+{% endblock %}

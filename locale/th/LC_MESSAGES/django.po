@@ -1,0 +1,151 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-31 19:14+0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: th\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\core\forms.py:7 .\core\forms.py:32 .\core\forms.py:78 .\core\models.py:16
+msgid "Date"
+msgstr "วันที่"
+
+#: .\core\forms.py:13 .\core\forms.py:38 .\core\forms.py:84
+msgid "Select date"
+msgstr ""
+
+#: .\core\forms.py:18
+msgid "Revenue (฿)"
+msgstr "รายได้ (฿)"
+
+#: .\core\forms.py:43
+msgid "Adult Haircuts"
+msgstr "ตัดผมผู้ใหญ่"
+
+#: .\core\forms.py:54
+msgid "Child Haircuts"
+msgstr "ตัดผมเด็ก"
+
+#: .\core\forms.py:65
+msgid "Free Haircuts"
+msgstr "ตัดผมฟรี"
+
+#: .\core\forms.py:89
+msgid "Sales (฿)"
+msgstr "ยอดขาย (฿)"
+
+#: .\core\forms.py:101
+msgid "Salad Cost (฿)"
+msgstr "ต้นทุนสลัด (฿)"
+
+#: .\core\models.py:8
+#, fuzzy
+#| msgid "Shoe Shop Entry"
+msgid "Shoe Shop Revenue"
+msgstr "รายการร้านรองเท้า"
+
+#: .\core\models.py:9
+#, fuzzy
+#| msgid "Adult Haircuts"
+msgid "Barber Adult Haircut"
+msgstr "ตัดผมผู้ใหญ่"
+
+#: .\core\models.py:10
+#, fuzzy
+#| msgid "Child Haircuts"
+msgid "Barber Child Haircut"
+msgstr "ตัดผมเด็ก"
+
+#: .\core\models.py:11
+#, fuzzy
+#| msgid "Free Haircuts"
+msgid "Barber Free Haircut"
+msgstr "ตัดผมฟรี"
+
+#: .\core\models.py:12
+#, fuzzy
+#| msgid "Meatball Stand Entry"
+msgid "Meatball Sales"
+msgstr "รายการร้านลูกชิ้น"
+
+#: .\core\models.py:13
+#, fuzzy
+#| msgid "Meatball Stand Entry"
+msgid "Meatball Salad Cost"
+msgstr "รายการร้านลูกชิ้น"
+
+#: .\core\models.py:17
+msgid "Entry Type"
+msgstr ""
+
+#: .\core\models.py:19
+msgid "Value"
+msgstr ""
+
+#: .\core\models.py:24
+msgid "Created At"
+msgstr ""
+
+#: .\core\models.py:25
+msgid "Updated At"
+msgstr ""
+
+#: .\core\models.py:33
+#, fuzzy
+#| msgid "Daily Entries"
+msgid "Daily Entry"
+msgstr "รายการประจำวัน"
+
+#: .\core\models.py:34 .\templates\base.html:27
+msgid "Daily Entries"
+msgstr "รายการประจำวัน"
+
+#: .\oy_companies\settings.py:88
+msgid "English"
+msgstr ""
+
+#: .\oy_companies\settings.py:89
+msgid "Thai"
+msgstr ""
+
+#: .\templates\base.html:7
+msgid "Oy Companies Data System"
+msgstr "ระบบข้อมูล Oy Companies"
+
+#: .\templates\base.html:17
+#, fuzzy
+#| msgid "Oy Companies Data System"
+msgid "Oy Companies"
+msgstr "ระบบข้อมูล Oy Companies"
+
+#: .\templates\base.html:31
+msgid "Meatball Inventory"
+msgstr "สินค้าคงคลังลูกชิ้น"
+
+#: .\templates\base.html:35
+msgid "Reports"
+msgstr "รายงาน"
+
+#: .\templates\base.html:39
+msgid "Move Forward!"
+msgstr "ก้าวไปข้างหน้า!"
+
+#~ msgid "Save"
+#~ msgstr "บันทึก"
+
+#~ msgid "Save Entry"
+#~ msgstr "บันทึกรายการ"
+
+#~ msgid "Barber Shop Entry"
+#~ msgstr "รายการร้านตัดผม"

@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load core_tags %}
+
+{% block title %}{% trans "Daily Entries" %} - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- Barber Shop Form -->
+        <div class="col-12 col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3 class="h5 mb-0">{% trans "Barber Shop Entry" %}</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'save_barber_entry' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="{{ barber_form.date.id_for_label }}" class="form-label">{% trans "Date" %}</label>
+                            {{ barber_form.date }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="{{ barber_form.adult_haircuts.id_for_label }}" class="form-label">{% trans "Adult Haircuts" %}</label>
+                            <input type="number" step="1" min="0" class="form-control"
+                                   name="adult_haircuts" value="0">
+                        </div>
+                        <div class="mb-3">
+                            <label for="{{ barber_form.child_haircuts.id_for_label }}" class="form-label">{% trans "Child Haircuts" %}</label>
+                            <input type="number" step="1" min="0" class="form-control"
+                                   name="child_haircuts" value="0">
+                        </div>
+                        <div class="mb-3">
+                            <label for="{{ barber_form.free_haircuts.id_for_label }}" class="form-label">{% trans "Free Haircuts" %}</label>
+                            <input type="number" step="1" min="0" class="form-control"
+                                   name="free_haircuts" value="0">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">{% trans "Save Barber Shop Entry" %}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shoe Shop Form -->
+<div class="col-12 col-md-4">
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="h5 mb-0">{% trans "Shoe Shop Entry" %}</h3>
+        </div>
+        <div class="card-body">
+            <form method="post" action="{% url 'save_shoe_entry' %}" id="shoeShopForm">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="{{ shoe_form.date.id_for_label }}" class="form-label">{% trans "Date" %}</label>
+                    {{ shoe_form.date }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ shoe_form.revenue.id_for_label }}" class="form-label">{% trans "Revenue (฿)" %}</label>
+                    <input type="number" step="1" min="0" class="form-control"
+                           name="revenue" value="0">
+                </div>
+                <button type="submit" class="btn btn-primary w-100" name="shoe_submit">{% trans "Save Shoe Shop Entry" %}</button>
+            </form>
+        </div>
+    </div>
+</div>
+        <!-- Meatball Stand Form -->
+        <div class="col-12 col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3 class="h5 mb-0">{% trans "Meatball Stand Entry" %}</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'save_meatball_entry' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="{{ meatball_form.date.id_for_label }}" class="form-label">{% trans "Date" %}</label>
+                            {{ meatball_form.date }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="{{ meatball_form.sales.id_for_label }}" class="form-label">{% trans "Sales (฿)" %}</label>
+                            <input type="number" step="1" min="0" class="form-control"
+                                   name="sales" value="0">
+                        </div>
+                        <div class="mb-3">
+                            <label for="{{ meatball_form.salad_cost.id_for_label }}" class="form-label">{% trans "Salad Cost (฿)" %}</label>
+                            <input type="number" step="1" min="0" class="form-control"
+                                   name="salad_cost" value="0">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">{% trans "Save Meatball Entry" %}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profit Report -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="h5 mb-0">{% trans "Profit Report" %}</h3>
+                    <div class="date-controls">
+                        <form method="get" class="d-flex gap-2">
+                            <input type="date" name="start_date" class="form-control"
+                                   value="{{ selected_date|date:'Y-m-d' }}">
+                            <input type="date" name="end_date" class="form-control"
+                                   value="{{ end_date|date:'Y-m-d' }}">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th>{% trans "Barber Shop" %}</th>
+                                        <td>฿{{ profits.barber|floatformat:0 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{% trans "Shoe Shop" %}</th>
+                                        <td>฿{{ profits.shoe|floatformat:0 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{% trans "Meatball Stand" %}</th>
+                                        <td>฿{{ profits.meatball|floatformat:0 }}</td>
+                                    </tr>
+                                    <tr class="table-primary">
+                                        <th>{% trans "Total Profit" %}</th>
+                                        <td>฿{{ profits.total|floatformat:0 }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <canvas id="profitPieChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Pie Chart
+    const ctx = document.getElementById('profitPieChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Barber Shop', 'Shoe Shop', 'Meatball Stand'],
+            datasets: [{
+                data: [
+                    {{ profits.barber|default:0 }},
+                    {{ profits.shoe|default:0 }},
+                    {{ profits.meatball|default:0 }}
+                ],
+                backgroundColor: [
+                    '#FF6384',
+                    '#36A2EB',
+                    '#FFCE56'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+
+    // Ensure all number inputs only accept integers
+    const numberInputs = document.querySelectorAll('input[type="number"]');
+    numberInputs.forEach(input => {
+        input.addEventListener('input', function() {
+            this.value = Math.round(this.value);
+        });
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Reports" %} - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h2 class="h3">{% trans "Reports" %}</h2>
+        </div>
+    </div>
+
+    <!-- Date Range Selection -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="h5 mb-0">{% trans "Select Date Range" %}</h3>
+                </div>
+                <div class="card-body">
+                    <form method="get" class="row g-3">
+                        <div class="col-12 col-sm-6 col-md-4">
+                            <label for="start_date" class="form-label">{% trans "Start Date" %}</label>
+                            <input type="date" class="form-control" id="start_date" name="start_date"
+                                   value="{{ start_date|date:'Y-m-d' }}" required>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4">
+                            <label for="end_date" class="form-label">{% trans "End Date" %}</label>
+                            <input type="date" class="form-control" id="end_date" name="end_date"
+                                   value="{{ end_date|date:'Y-m-d' }}" required>
+                        </div>
+                        <div class="col-12 col-md-4 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary w-100">{% trans "Generate Report" %}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if report_data %}
+    <!-- Revenue Summary -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="h5 mb-0">{% trans "Revenue Summary" %}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>{% trans "Business" %}</th>
+                                    <th>{% trans "Total Revenue" %}</th>
+                                    <th>{% trans "Average Daily Revenue" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{% trans "Shoe Shop" %}</td>
+                                    <td>฿{{ report_data.shoe_shop.total|floatformat:2 }}</td>
+                                    <td>฿{{ report_data.shoe_shop.average|floatformat:2 }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{% trans "Barber Shop" %}</td>
+                                    <td>฿{{ report_data.barber_shop.total_haircuts|floatformat:2 }}</td>
+                                    <td>
+                                        {% trans "Adult" %}: {{ report_data.barber_shop.adult_avg|floatformat:1 }}<br>
+                                        {% trans "Child" %}: {{ report_data.barber_shop.child_avg|floatformat:1 }}<br>
+                                        {% trans "Free" %}: {{ report_data.barber_shop.free_haircuts|floatformat:1 }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>{% trans "Meatball Stand" %}</td>
+                                    <td>฿{{ report_data.meatball_stand.total_sales|floatformat:2 }}</td>
+                                    <td>
+                                        {% trans "Sales" %}: ฿{{ report_data.meatball_stand.sales_avg|floatformat:2 }}<br>
+                                        {% trans "Costs" %}: ฿{{ report_data.meatball_stand.costs_avg|floatformat:2 }}<br>
+                                        {% trans "Net" %}: ฿{{ report_data.meatball_stand.net_profit|floatformat:2 }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr class="table-primary">
+                                    <th>{% trans "Total" %}</th>
+                                    <th>฿{{ report_data.total_revenue|floatformat:2 }}</th>
+                                    <th>฿{{ report_data.average_daily_revenue|floatformat:2 }}</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-info">
+                {% trans "Select a date range and click 'Generate Report' to view the report." %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const startDate = document.getElementById('start_date');
+    const endDate = document.getElementById('end_date');
+
+    startDate.addEventListener('change', function() {
+        endDate.min = this.value;
+    });
+
+    endDate.addEventListener('change', function() {
+        startDate.max = this.value;
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,80 @@
+/* General Mobile Optimizations */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    .form-label {
+        margin-bottom: 0.2rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Navigation Adjustments */
+.navbar-brand {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .navbar-nav {
+        padding-top: 0.5rem;
+    }
+
+    .nav-link {
+        padding: 0.5rem 0;
+    }
+}
+
+/* Form Styling */
+.form-control {
+    margin-bottom: 1rem;
+}
+
+.card {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: none;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid rgba(0,0,0,0.125);
+}
+
+.form-select {
+    min-width: 100px;
+}
+
+/* Alert Messages */
+.alert {
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+
+/* Language Selector */
+@media (max-width: 768px) {
+    .language-selector {
+        margin-top: 1rem;
+        width: 100%;
+    }
+
+    .form-select {
+        width: 100%;
+    }
+}
+
+/* Thai Font Support */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                 "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans",
+                 sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+                 "Segoe UI Symbol", "Noto Color Emoji", "Noto Sans Thai";
+}
