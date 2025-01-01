@@ -15,12 +15,15 @@
         <!-- Task Management -->
         <div class="col-12 col-md-6 mb-4">
             <div class="card h-100">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h3 class="h5 mb-0">{% trans "Task Management" %}</h3>
+                    <a href="{% url 'task_diagram' %}" class="btn btn-outline-primary" target="_blank">
+                        {% trans "View Task Diagram" %}
+                    </a>
                 </div>
                 <div class="card-body">
                     <!-- Add Task Form -->
-                    <form method="post" class="mb-4">
+                    <form method="post" class="mb-4" id="add-task-form">
                         {% csrf_token %}
                         <input type="hidden" name="add_task" value="1">
 
@@ -71,7 +74,7 @@
                     {% if tasks %}
                     <div class="list-group" id="task-list">
                         {% for task in tasks %}
-                        <div class="list-group-item task-item" data-task-id="{{ task.id }}">
+                        <div class="list-group-item task-item" data-task-id="{{ task.id }}" data-parent-id="{{ task.parent_task.id|default:'' }}">
                             <div class="d-flex w-100 justify-content-between align-items-center">
                                 <h5 class="mb-1 task-name">{{ task.name }}</h5>
                                 <small class="task-deadline">{% if task.deadline %}{{ task.deadline }}{% endif %}</small>
@@ -140,63 +143,112 @@
                     </form>
 
                     {% if accounts %}
-<div class="list-group">
-    {% for account in accounts %}
-    <div class="list-group-item account-item" data-account-id="{{ account.id }}">
-        <div class="d-flex w-100 justify-content-between align-items-center">
-            <h5 class="mb-1 account-name">{{ account.name }}</h5>
-            <span class="badge bg-primary account-balance">฿{{ account.balance|floatformat:2 }}</span>
-        </div>
-        <div class="progress mb-2" style="height: 20px;">
-            {% if account.goal > 0 %}
-                {% with progress_percentage=account.balance|divide_by:account.goal|multiply_by:100 %}
-                <div class="progress-bar" role="progressbar"
-                     style="width: {{ progress_percentage }}%;"
-                     aria-valuenow="{{ progress_percentage }}"
-                     aria-valuemin="0" aria-valuemax="100">
-                    {{ progress_percentage|floatformat:0 }}%
-                </div>
-                {% endwith %}
-            {% else %}
-                <div class="progress-bar" role="progressbar"
-                     style="width: 0%;"
-                     aria-valuenow="0"
-                     aria-valuemin="0" aria-valuemax="100">
-                    0%
-                </div>
-            {% endif %}
-        </div>
-        <p class="mb-1">{% trans "Goal" %}: ฿<span class="account-goal">{{ account.goal|floatformat:2 }}</span></p>
-        <p class="mb-1">{% trans "Remaining" %}: ฿<span class="account-remaining">{{ account.goal - account.balance|floatformat:2 }}</span></p>
-        <div class="btn-group btn-group-sm mt-2">
-            <button class="btn btn-outline-primary edit-account">{% trans "Edit" %}</button>
-            <button class="btn btn-outline-danger delete-account">{% trans "Delete" %}</button>
-        </div>
-    </div>
-    {% endfor %}
-</div>
-{% else %}
-<div class="alert alert-info" id="no-accounts-alert">
-    {% trans "No accounts available." %}
-</div>
-{% endif %}
+                    <div class="list-group">
+                        {% for account in accounts %}
+                        <div class="list-group-item account-item" data-account-id="{{ account.id }}">
+                            <div class="d-flex w-100 justify-content-between align-items-center">
+                                <h5 class="mb-1 account-name">{{ account.name }}</h5>
+                                <span class="badge bg-primary account-balance">฿{{ account.balance|floatformat:2 }}</span>
+                            </div>
+                            <div class="progress mb-2" style="height: 20px;">
+                                {% if account.goal > 0 %}
+                                    {% with progress_percentage=account.balance|divide_by:account.goal|multiply_by:100 %}
+                                    <div class="progress-bar" role="progressbar"
+                                         style="width: {{ progress_percentage }}%;"
+                                         aria-valuenow="{{ progress_percentage }}"
+                                         aria-valuemin="0" aria-valuemax="100">
+                                        {{ progress_percentage|floatformat:0 }}%
+                                    </div>
+                                    {% endwith %}
+                                {% else %}
+                                    <div class="progress-bar" role="progressbar"
+                                         style="width: 0%;"
+                                         aria-valuenow="0"
+                                         aria-valuemin="0" aria-valuemax="100">
+                                        0%
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <p class="mb-1">{% trans "Goal" %}: ฿<span class="account-goal">{{ account.goal|floatformat:2 }}</span></p>
+                            <p class="mb-1">{% trans "Remaining" %}: ฿<span class="account-remaining">{{ account.remaining|floatformat:2 }}</span></p>
+
+                            <div class="btn-group btn-group-sm mt-2">
+                                <button class="btn btn-outline-primary edit-account">{% trans "Edit" %}</button>
+                                <button class="btn btn-outline-danger delete-account">{% trans "Delete" %}</button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="alert alert-info" id="no-accounts-alert">
+                        {% trans "No accounts available." %}
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modals and JavaScript can be added later -->
-{% endblock %}
+<!-- Edit Task Modal -->
+<div class="modal fade" id="editTaskModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{% trans "Edit Task" %}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="edit-task-form">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <input type="hidden" id="edit-task-id" name="task_id">
+                    <div class="mb-3">
+                        <label for="edit-task-name" class="form-label">{% trans "Task Name" %}</label>
+                        <input type="text" class="form-control" id="edit-task-name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-task-description" class="form-label">{% trans "Description" %}</label>
+                        <textarea class="form-control" id="edit-task-description" name="description" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-task-deadline" class="form-label">{% trans "Deadline" %}</label>
+                        <input type="date" class="form-control" id="edit-task-deadline" name="deadline">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
+                    <button type="submit" class="btn btn-primary">{% trans "Save Changes" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
+{% endblock %}
 {% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.4.3/mermaid.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize mermaid
+    mermaid.initialize({
+        startOnLoad: true,
+        theme: 'default',
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+            curve: 'basis'
+        }
+    });
+
     // Add Task via AJAX
     const addTaskForm = document.getElementById('add-task-form');
     const noTasksAlert = document.getElementById('no-tasks-alert');
     const taskList = document.getElementById('task-list');
-    const editTaskModal = new bootstrap.Modal(document.getElementById('editTaskModal'));
+    let editTaskModal;
+    const editTaskModalElement = document.getElementById('editTaskModal');
+    if (editTaskModalElement) {
+        editTaskModal = new bootstrap.Modal(editTaskModalElement);
+    }
 
     addTaskForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -329,36 +381,38 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Edit Task Form Submission
     const editTaskForm = document.getElementById('edit-task-form');
-    editTaskForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const formData = new FormData(this);
-        const taskId = formData.get('task_id');
+    if (editTaskForm) {
+        editTaskForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const taskId = formData.get('task_id');
 
-        fetch(`/edit-task/${taskId}/`, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                // Find the task item
-                const taskItem = document.querySelector(`.task-item[data-task-id="${taskId}"]`);
-                if (taskItem) {
-                    taskItem.querySelector('.task-name').textContent = formData.get('name');
-                    taskItem.querySelector('.task-description').textContent = formData.get('description');
-                    taskItem.querySelector('.task-deadline').textContent = formData.get('deadline') || '';
+            fetch(`/edit-task/${taskId}/`, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
                 }
-                editTaskModal.hide();
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('{% trans "Failed to update task" %}');
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Find the task item
+                    const taskItem = document.querySelector(`.task-item[data-task-id="${taskId}"]`);
+                    if (taskItem) {
+                        taskItem.querySelector('.task-name').textContent = formData.get('name');
+                        taskItem.querySelector('.task-description').textContent = formData.get('description');
+                        taskItem.querySelector('.task-deadline').textContent = formData.get('deadline') || '';
+                    }
+                    editTaskModal.hide();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('{% trans "Failed to update task" %}');
+            });
         });
-    });
+    }
 });
 </script>
 {% endblock %}

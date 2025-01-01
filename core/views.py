@@ -216,7 +216,6 @@ def inventory(request):
         'item_form': item_form,
         'inventory_form': inventory_form,
         'items': items,
-        'weekly_counts': weekly_counts,
     }
     return render(request, 'core/inventory.html', context)
 
@@ -447,6 +446,117 @@ def delete_inventory_item(request, item_id):
 #     }
 #
 #     return render(request, 'core/inventory_report.html', context)
+# def inventory_report(request):
+#     start_date = request.GET.get('start_date')
+#     end_date = request.GET.get('end_date')
+#     report_data = None
+#     report_error = None
+#
+#     if start_date and end_date:
+#         try:
+#             start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
+#             end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
+#
+#             # Use isocalendar to get the correct week number
+#             start_week = start_date.isocalendar()[1]
+#             end_week = end_date.isocalendar()[1]
+#             year = end_date.year  # Use end date's year
+#
+#             # Check for END inventory entries
+#             end_inventories = WeeklyInventory.objects.filter(
+#                 inventory_type='END',
+#                 year=year,
+#                 week_number=end_week
+#             )
+#
+#             # If no END inventory, return error
+#             if not end_inventories.exists():
+#                 report_error = _("No ending inventory found for the selected week. Please set end of week inventory before generating the report.")
+#                 return render(request, 'core/inventory_report.html', {
+#                     'start_date': start_date,
+#                     'end_date': end_date,
+#                     'report_error': report_error
+#                 })
+#
+#             # Collect sales and salad costs
+#             meatball_sales = DailyEntry.objects.filter(
+#                 entry_type='MEATBALL_SALES',
+#                 date__range=[start_date, end_date]
+#             ).aggregate(total_sales=Coalesce(Sum('value'), Value(Decimal('0'))))['total_sales']
+#
+#             salad_costs = DailyEntry.objects.filter(
+#                 entry_type='MEATBALL_SALAD',
+#                 date__range=[start_date, end_date]
+#             ).aggregate(total_cost=Coalesce(Sum('value'), Value(Decimal('0'))))['total_cost']
+#
+#             # Prepare report items
+#             items_report = []
+#
+#             # Get all inventory items
+#             for item in InventoryItem.objects.all():
+#                 # Find the END inventory for the week
+#                 end_inv = WeeklyInventory.objects.filter(
+#                     item=item,
+#                     inventory_type='END',
+#                     year=year,
+#                     week_number=end_week
+#                 ).first()
+#
+#                 # Find the START inventory from the previous week
+#                 previous_week = end_week - 1 if end_week > 1 else 52
+#                 previous_year = year if end_week > 1 else year - 1
+#
+#                 start_inv = WeeklyInventory.objects.filter(
+#                     item=item,
+#                     inventory_type='START',
+#                     year=previous_year,
+#                     week_number=previous_week
+#                 ).first()
+#
+#                 # Calculate units used
+#                 if start_inv and end_inv:
+#                     units_used = start_inv.quantity - end_inv.quantity
+#                     cost_of_used = Decimal(units_used) * item.cost
+#                 else:
+#                     # If no previous START inventory, assume all current inventory was used
+#                     units_used = end_inv.quantity if end_inv else Decimal('0')
+#                     cost_of_used = units_used * item.cost
+#
+#                 # Profit calculation
+#                 item_profit = meatball_sales - (cost_of_used + salad_costs)
+#
+#                 items_report.append({
+#                     'name': item.name,
+#                     'price': item.cost,
+#                     'units_used': units_used,
+#                     'cost_of_used': cost_of_used,
+#                     'salad_cost': salad_costs,
+#                     'revenue': meatball_sales,
+#                     'profit': item_profit
+#                 })
+#
+#             # Calculate totals
+#             report_data = {
+#                 'items': items_report,
+#                 'totals': {
+#                     'total_cost': sum(item['cost_of_used'] for item in items_report),
+#                     'total_salad': salad_costs,
+#                     'total_revenue': meatball_sales,
+#                     'total_profit': meatball_sales - sum(item['cost_of_used'] for item in items_report) - salad_costs
+#                 }
+#             }
+#
+#         except Exception as e:
+#             report_error = f"Error generating report: {str(e)}"
+#
+#     context = {
+#         'start_date': start_date,
+#         'end_date': end_date,
+#         'report_data': report_data,
+#         'report_error': report_error
+#     }
+#
+#     return render(request, 'core/inventory_report.html', context)
 def inventory_report(request):
     start_date = request.GET.get('start_date')
     end_date = request.GET.get('end_date')
@@ -458,29 +568,8 @@ def inventory_report(request):
             start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
             end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
 
-            # Use isocalendar to get the correct week number
-            start_week = start_date.isocalendar()[1]
-            end_week = end_date.isocalendar()[1]
-            year = end_date.year  # Use end date's year
-
-            # Check for END inventory entries
-            end_inventories = WeeklyInventory.objects.filter(
-                inventory_type='END',
-                year=year,
-                week_number=end_week
-            )
-
-            # If no END inventory, return error
-            if not end_inventories.exists():
-                report_error = _("No ending inventory found for the selected week. Please set end of week inventory before generating the report.")
-                return render(request, 'core/inventory_report.html', {
-                    'start_date': start_date,
-                    'end_date': end_date,
-                    'report_error': report_error
-                })
-
-            # Collect sales and salad costs
-            meatball_sales = DailyEntry.objects.filter(
+            # Get total revenue and salad cost for the period ONCE
+            revenue = DailyEntry.objects.filter(
                 entry_type='MEATBALL_SALES',
                 date__range=[start_date, end_date]
             ).aggregate(total_sales=Coalesce(Sum('value'), Value(Decimal('0'))))['total_sales']
@@ -490,74 +579,69 @@ def inventory_report(request):
                 date__range=[start_date, end_date]
             ).aggregate(total_cost=Coalesce(Sum('value'), Value(Decimal('0'))))['total_cost']
 
-            # Prepare report items
             items_report = []
+            total_inventory_cost = Decimal('0.00')
 
-            # Get all inventory items
             for item in InventoryItem.objects.all():
-                # Find the END inventory for the week
-                end_inv = WeeklyInventory.objects.filter(
-                    item=item,
-                    inventory_type='END',
-                    year=year,
-                    week_number=end_week
-                ).first()
-
-                # Find the START inventory from the previous week
-                previous_week = end_week - 1 if end_week > 1 else 52
-                previous_year = year if end_week > 1 else year - 1
-
+                # Fetch START inventory: Closest inventory before the start_date
                 start_inv = WeeklyInventory.objects.filter(
                     item=item,
                     inventory_type='START',
-                    year=previous_year,
-                    week_number=previous_week
-                ).first()
+                    year__lte=start_date.year,
+                    week_number__lte=start_date.isocalendar()[1]
+                ).order_by('-year', '-week_number').first()
 
-                # Calculate units used
-                if start_inv and end_inv:
-                    units_used = start_inv.quantity - end_inv.quantity
-                    cost_of_used = Decimal(units_used) * item.cost
-                else:
-                    # If no previous START inventory, assume all current inventory was used
-                    units_used = end_inv.quantity if end_inv else Decimal('0')
-                    cost_of_used = units_used * item.cost
+                # Fetch END inventory: Closest inventory for the end_date
+                end_inv = WeeklyInventory.objects.filter(
+                    item=item,
+                    inventory_type='END',
+                    year__lte=end_date.year,
+                    week_number__lte=end_date.isocalendar()[1]
+                ).order_by('-year', '-week_number').first()
 
-                # Profit calculation
-                item_profit = meatball_sales - (cost_of_used + salad_costs)
+                # Calculate inventory metrics
+                start_qty = start_inv.quantity if start_inv else 0
+                end_qty = end_inv.quantity if end_inv else 0
+                units_used = max(0, start_qty - end_qty)
+                cost_of_used = Decimal(units_used) * item.cost
+                total_inventory_cost += cost_of_used
 
+                # Add item data without profit calculation
                 items_report.append({
                     'name': item.name,
                     'price': item.cost,
                     'units_used': units_used,
                     'cost_of_used': cost_of_used,
-                    'salad_cost': salad_costs,
-                    'revenue': meatball_sales,
-                    'profit': item_profit
+                    'salad_cost': None,  # Remove individual salad cost
+                    'revenue': None,      # Remove individual revenue
+                    'profit': None        # Remove individual profit
                 })
 
-            # Calculate totals
+            # Calculate total profit for the entire operation
+            total_profit = revenue - (total_inventory_cost + salad_costs)
+
+            # Prepare report data
             report_data = {
                 'items': items_report,
                 'totals': {
-                    'total_cost': sum(item['cost_of_used'] for item in items_report),
-                    'total_salad': salad_costs,
-                    'total_revenue': meatball_sales,
-                    'total_profit': meatball_sales - sum(item['cost_of_used'] for item in items_report) - salad_costs
-                }
+                    'total_cost': total_inventory_cost,
+                    'total_salad_cost': salad_costs,
+                    'total_revenue': revenue,
+                    'total_profit': total_profit,
+                },
             }
 
         except Exception as e:
             report_error = f"Error generating report: {str(e)}"
 
-    context = {
+    return render(request, 'core/inventory_report.html', {
         'start_date': start_date,
         'end_date': end_date,
         'report_data': report_data,
         'report_error': report_error
-    }
+    })
 
-    return render(request, 'core/inventory_report.html', context)
+
 
 def inventory_report_ajax(request):
     start_date = request.GET.get('start_date')
@@ -690,6 +774,10 @@ def move_forward(request):
     tasks = Task.objects.filter(parent_task=None)
     accounts = Account.objects.all()
 
+    # Calculate the remaining amount for each account
+    for account in accounts:
+        account.remaining = account.goal - account.balance if account.goal else 0
+
     context = {
         'task_form': task_form,
         'account_form': account_form,
@@ -697,7 +785,6 @@ def move_forward(request):
         'accounts': accounts,
     }
     return render(request, 'core/move_forward.html', context)
-
 
 def reports(request):
     form = DateRangeForm(request.GET or None)
@@ -848,6 +935,61 @@ def add_subtask(request, task_id):
        return JsonResponse({'status': 'success'})
    return JsonResponse({'status': 'error'}, status=400)
 
+
+def task_diagram(request):
+    tasks = Task.objects.all()
+    mermaid_code = generate_task_diagram(tasks)  # We'll create this function
+    return render(request, 'core/task_diagram.html', {'mermaid_code': mermaid_code})
+
+
+def generate_task_diagram(tasks):
+    diagram = ["graph TD"]
+
+    # Debug logging
+    print("Tasks in diagram generation:",
+          [(t.id, t.name, t.parent_task_id if t.parent_task else 'None') for t in tasks])
+
+    # Add nodes and relationships
+    processed_nodes = set()
+    relationships = set()
+
+    for task in tasks:
+        task_id = f"task{task.id}"
+        # Clean task name and escape quotes
+        task_name = task.name.strip().replace('"', '\\"')
+
+        if task_id not in processed_nodes:
+            diagram.append(f'    {task_id}["{task_name}"]')
+            processed_nodes.add(task_id)
+
+            # If task is completed, style it green, otherwise pink
+            if task.completed:
+                diagram.append(f'    style {task_id} fill:#90EE90,stroke:#333')
+            else:
+                diagram.append(f'    style {task_id} fill:#FFB6C1,stroke:#333')
+
+        # Add relationship if task has a parent
+        if task.parent_task:
+            parent_id = f"task{task.parent_task.id}"
+            relationship = f"    {parent_id} --> {task_id}"
+            if relationship not in relationships:
+                relationships.add(relationship)
+                diagram.append(relationship)
+
+    result = "\n".join(diagram)
+    print("Generated Mermaid Diagram:")
+    print(result)
+    return result
+
+
+def task_diagram(request):
+    # Get only active (non-completed) tasks with their relationships
+    tasks = Task.objects.select_related('parent_task').all()
+    mermaid_code = generate_task_diagram(tasks)
+    return render(request, 'core/task_diagram.html', {
+        'mermaid_code': mermaid_code,
+        'tasks': tasks  # Pass tasks to template for debugging
+    })
 
 @require_http_methods(["POST"])
 def add_account(request):

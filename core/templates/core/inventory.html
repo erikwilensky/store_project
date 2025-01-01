@@ -189,33 +189,7 @@
                 <!-- Container for AJAX report results -->
                 <div id="report-results" class="mt-4"></div>
 
-                {% if weekly_counts %}
-                <div class="table-responsive mt-4">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>{% trans "Week" %}</th>
-                                <th>{% trans "Year" %}</th>
-                                <th>{% trans "View Report" %}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for week in weekly_counts %}
-                            <tr>
-                                <td>Week {{ week.week_number }}</td>
-                                <td>{{ week.year }}</td>
-                                <td>
-                                    <a href="{% url 'inventory_report' %}?week={{ week.week_number }}&year={{ week.year }}"
-                                       class="btn btn-sm btn-outline-primary">
-                                        {% trans "View Report" %}
-                                    </a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                {% endif %}
+
             </div>
         </div>
     </div>

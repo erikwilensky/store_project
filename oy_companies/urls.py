@@ -40,7 +40,7 @@ urlpatterns += i18n_patterns(
     path('delete-task/<int:task_id>/', views.delete_task, name='delete_task'),
     path('complete-task/<int:task_id>/', views.complete_task, name='complete_task'),
     path('add-subtask/<int:task_id>/', views.add_subtask, name='add_subtask'),
-
+    path('task-diagram/', views.task_diagram, name='task_diagram'),
     # Account Management
     path('add-account/', views.add_account, name='add_account'),
     path('edit-account/<int:account_id>/', views.edit_account, name='edit_account'),

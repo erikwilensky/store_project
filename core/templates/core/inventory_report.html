@@ -11,10 +11,10 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h3 class="h5 mb-0">{% trans "Inventory Report" %}</h3>
                     <form method="get" class="d-flex gap-2">
-                        <input type="date" name="start_date" class="form-control" 
+                        <input type="date" name="start_date" class="form-control"
                                value="{{ start_date|date:'Y-m-d' }}"
                                onchange="validateDate(this, 'start')">
-                        <input type="date" name="end_date" class="form-control" 
+                        <input type="date" name="end_date" class="form-control"
                                value="{{ end_date|date:'Y-m-d' }}"
                                onchange="validateDate(this, 'end')">
                         <button type="submit" class="btn btn-primary">{% trans "Generate Report" %}</button>
@@ -27,16 +27,15 @@
                         </div>
                     {% elif report_data %}
                         <div class="table-responsive">
-                            <table class="table">
+                            <!-- Inventory Items Table -->
+                            <h4 class="mb-3">{% trans "Inventory Usage" %}</h4>
+                            <table class="table mb-4">
                                 <thead>
                                     <tr>
                                         <th>{% trans "Item" %}</th>
                                         <th>{% trans "Item Price" %}</th>
                                         <th>{% trans "Units Used" %}</th>
                                         <th>{% trans "Cost of Used" %}</th>
-                                        <th>{% trans "Salad Cost" %}</th>
-                                        <th>{% trans "Revenue" %}</th>
-                                        <th>{% trans "Profit" %}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -46,21 +45,38 @@
                                         <td>฿{{ item.price|floatformat:0 }}</td>
                                         <td>{{ item.units_used }}</td>
                                         <td>฿{{ item.cost_of_used|floatformat:0 }}</td>
-                                        <td>฿{{ item.salad_cost|floatformat:0 }}</td>
-                                        <td>฿{{ item.revenue|floatformat:0 }}</td>
-                                        <td>฿{{ item.profit|floatformat:0 }}</td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
                                 <tfoot>
                                     <tr class="table-primary">
-                                        <th colspan="3">{% trans "Totals" %}</th>
+                                        <th colspan="3">{% trans "Total Inventory Cost" %}</th>
                                         <th>฿{{ report_data.totals.total_cost|floatformat:0 }}</th>
-                                        <th>฿{{ report_data.totals.total_salad|floatformat:0 }}</th>
-                                        <th>฿{{ report_data.totals.total_revenue|floatformat:0 }}</th>
-                                        <th>฿{{ report_data.totals.total_profit|floatformat:0 }}</th>
                                     </tr>
                                 </tfoot>
+                            </table>
+
+                            <!-- Overall Summary Table -->
+                            <h4 class="mb-3">{% trans "Financial Summary" %}</h4>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th>{% trans "Total Inventory Cost" %}</th>
+                                        <td>฿{{ report_data.totals.total_cost|floatformat:0 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{% trans "Total Salad Cost" %}</th>
+                                        <td>฿{{ report_data.totals.total_salad|floatformat:0 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{% trans "Total Revenue" %}</th>
+                                        <td>฿{{ report_data.totals.total_revenue|floatformat:0 }}</td>
+                                    </tr>
+                                    <tr class="table-primary">
+                                        <th>{% trans "Total Profit" %}</th>
+                                        <td>฿{{ report_data.totals.total_profit|floatformat:0 }}</td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     {% else %}
@@ -78,7 +94,7 @@
 function validateDate(input, type) {
     const date = new Date(input.value);
     const dayOfWeek = date.getDay();
-    
+
     if (type === 'start' && dayOfWeek !== 1) {  // Monday
         alert('{% trans "Start date must be a Monday" %}');
         input.value = '';
